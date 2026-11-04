@@ -1,46 +1,48 @@
 open System
 open System.Text.RegularExpressions
 
-// Function to reverse a string
-let reverseString (str: string) =
-    new string(Array.rev (str.ToCharArray()))
+let reverseText (text: string) =
+    new string(Array.rev (text.ToCharArray()))
 
-// Function to check palindrome
-let isPalindrome (str: string) =
-    str = reverseString str
+let checkPalindrome (text: string) =
+    text = reverseText text
 
-// Function to transform string
-let transformString (str: string) =
-    if str |> Seq.forall Char.IsLetter then
-        str.ToUpper()
-    elif str |> Seq.forall Char.IsDigit then
-        let num = Int32.Parse(str)
-        string (num * 2)
+let changeString (text: string) =
+    if text |> Seq.forall Char.IsLetter then
+        text.ToUpper()
+    elif text |> Seq.forall Char.IsDigit then
+        let value = Int32.Parse(text)
+        string (value * 2)
     else
-        str
+        text
 
-// Function to validate email
-let isValidEmail (email: string) =
-    Regex.IsMatch(email, @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$")
+let checkEmail (address: string) =
+    Regex.IsMatch(address, @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$")
 
-// Main Program
-printfn "STRING PROCESSING"
+printfn "STRING PROCESSING PROGRAM"
 
-// Reverse and Palindrome
 printfn "\n1. Reverse and Palindrome Check"
-["madam"; "hello"; "level"]
-|> List.iter (fun s ->
-    printfn "String: %s, Reverse: %s, Palindrome: %b"
-        s (reverseString s) (isPalindrome s))
 
-// String Transformation
+["madam"; "computer"; "level"]
+|> List.iter (fun word ->
+    printfn "Original: %s" word
+    printfn "Reversed: %s" (reverseText word)
+    printfn "Palindrome: %b" (checkPalindrome word)
+)
+
 printfn "\n2. String Transformation"
-["hello"; "123"; "abc123"]
-|> List.iter (fun s ->
-    printfn "%s -> %s" s (transformString s))
 
-// Email Validation
+["welcome"; "456"; "abc123"]
+|> List.iter (fun value ->
+    printfn "%s -> %s" value (changeString value)
+)
+
 printfn "\n3. Email Validation"
-["test@gmail.com"; "hello123"; "user@yahoo.in"]
-|> List.iter (fun email ->
-    printfn "%s -> %b" email (isValidEmail email))
+
+["student@gmail.com"; "invalid123"; "user@yahoo.in"]
+|> List.iter (fun mail ->
+    if checkEmail mail then
+        printfn "%s : Valid Email" mail
+    else
+        printfn "%s : Invalid Email" mail
+)
