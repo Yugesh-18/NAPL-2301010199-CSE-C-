@@ -28,6 +28,4 @@ func verifyUserData(rawText string) (string, error) {
 	return strings.ToLower(cleaned), nil
 }
 
-func main() {
-	fmt.Println("Validation system ready. Use 'go test -v' to execute verification suite.")
-}
+
